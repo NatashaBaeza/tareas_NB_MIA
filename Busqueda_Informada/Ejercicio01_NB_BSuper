@@ -1,0 +1,67 @@
+# Reporte: Ejercicio 01 Comparación entre Búsqueda Greedy y A*--- Busqueda Informada
+
+**Pareja evaluada:** `Zerind` → `Craiova`  
+
+---
+
+## 1. Origen - destino y subgrafo
+
+* **Origen:** `Zerind` ($h = 283$)
+* **Destino:** `Craiova` ($h = 0$)
+
+
+El subgrafo resultado considerando las distancias que se deben recorrer es el siguiente:
+
+```text
+                     [Zerind] (h=283)
+                    /        \
+             71 km /          \ 75 km
+                  v            v
+              [Oradea]       [Arad] (h=260)
+              (h=308)          |
+                               | 140 km
+                               v
+                            [Sibiu] (h=175)
+                           /       \
+                    99 km /         \ 80 km
+                         v           v
+                 [Fagaras]       [Rimnicu Vilcea] (h=124)
+                 (h=169)             |
+                     | 211 km        | 146 km
+                     v               v
+                 [Pitesti]       [Craiova] (h=0)
+                 (h=104)
+                     | 138 km
+                     v
+                 [Craiova] (h=0)
+
+```
+
+## Resultados de las ejecuciones
+
+### 
+| Algoritmo | Status | Path (Ruta) | Depth | Costo(km) | Expanded | Generated |
+|---|:---:|---|:---:|:---:|:---:|:---:|
+| **Greedy** | success | Zerind → Arad → Sibiu → Rimnicu Vilcea → Craiova | 4 | **441 km** | 4 | 13 |
+| **A\*** | success | Zerind → Arad → Sibiu → Rimnicu Vilcea → Craiova | 4 | **441 km** | 7 | 19 |
+
+---
+
+### Costos Camino ($g$, $h$, $f$)
+
+| Ciudad | $g$ (km recorridos) | $h$ (distancia en línea recta) | $f = g + h$ (estimado total) |
+|---|:---:|:---:|:---:|
+| **Zerind** | 0 | 283 | 283 |
+| **Arad** | 75 | 260 | 335 |
+| **Sibiu** | 215 | 175 | 390 |
+| **Rimnicu Vilcea** | 295 | 124 | 419 |
+| **Craiova** | 441 | 0 | 441 |
+
+---
+
+## 2. Resumen de Resultados
+
+* **¿A* encontró el camino de **menos km**?** Sí. Tanto Greedy como A* ambos encontraron exactamente el mismo camino (Zerind → Arad → Sibiu → Rimnicu Vilcea → Craiova) con un costo óptimo de **441 km** y 4 conexiones. En esta zona del mapa, las carreteras más cortas coincidieron en línea recta con la dirección hacia la meta (Craiova), por lo que Greedy no tuvo desvios y al final ambas coincidieron.
+
+A* tuvo mas nodos, ya que Greedy se dirige directamente al objetivo y A* debio primero asegurar que el camino sea el que tiene menor costo evualuando 
+$f = g + h$
